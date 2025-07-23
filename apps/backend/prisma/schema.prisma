@@ -26,3 +26,9 @@ model GlobalStat {
 
   @@unique([cc, date], name: "ccWithDate")
 }
+
+model KeyValue {
+  id    Int    @id @default(autoincrement())
+  key   String @unique
+  value String @db.Text
+}
