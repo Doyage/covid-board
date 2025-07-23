@@ -12,3 +12,17 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model GlobalStat {
+  id        Int      @id @default(autoincrement())
+  cc        String   @db.Char(2)
+  date      DateTime @db.Date
+  confirmed Int
+  death     Int?
+  released  Int?
+  tested    Int?
+  testing   Int?
+  negative  Int?
+
+  @@unique([cc, date], name: "ccWithDate")
+}
