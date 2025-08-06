@@ -32,3 +32,13 @@ model KeyValue {
   key   String @unique
   value String @db.Text
 }
+
+model Country {
+  code String @id @db.Char(2)
+  flag String
+  name_en String
+  name_ko String
+  name_jp String
+  population BigInt @db.BigInt
+  worldometer_title String
+}
