@@ -1,11 +1,6 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
+  seed     = "ts-node ./seed.ts"
 }
 
 datasource db {
@@ -30,15 +25,15 @@ model GlobalStat {
 model KeyValue {
   id    Int    @id @default(autoincrement())
   key   String @unique
-  value String @db.Text
+  value String
 }
 
 model Country {
-  code String @id @db.Char(2)
-  flag String
-  name_en String
-  name_ko String
-  name_jp String
-  population BigInt @db.BigInt
+  cc              String @id @db.Char(2)
+  flag              String
+  name_en           String
+  name_ko           String
+  name_ja           String
+  population        BigInt
   worldometer_title String
 }
