@@ -1,7 +1,16 @@
+'use client';
+
+import { useQuery } from '@tanstack/react-query';
+import { fetchCountries } from './api/countries';
 import Heading from './src/components/atoms/Heading';
 import Slide from './src/components/organisms/Slide';
 
 export default function Home() {
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['Countries'],
+    queryFn: fetchCountries,
+  });
+
   return (
     <main>
       <Heading level={1}>코로나보드</Heading>
