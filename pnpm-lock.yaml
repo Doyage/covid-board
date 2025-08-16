@@ -35,6 +35,9 @@ importers:
       '@nestjs/platform-express':
         specifier: ^11.0.1
         version: 11.1.5(@nestjs/common@11.1.5(class-transformer@0.5.1)(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.5)
+      '@repo/types':
+        specifier: workspace:*
+        version: link:../../packages/types
       csv-parse:
         specifier: ^6.1.0
         version: 6.1.0
@@ -144,6 +147,9 @@ importers:
 
   apps/web:
     dependencies:
+      '@repo/types':
+        specifier: workspace:*
+        version: link:../../packages/types
       '@repo/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -230,7 +236,7 @@ importers:
         specifier: ^8.37.0
         version: 8.37.0(eslint@9.31.0(jiti@2.4.2))(typescript@5.8.2)
 
-  packages/shared: {}
+  packages/types: {}
 
   packages/typescript-config: {}
 

@@ -1,12 +1,4 @@
-export type TCountry = {
-  cc: string;
-  flag: string;
-  name_en: string;
-  name_ko: string;
-  name_ja: string;
-  population: string;
-  worldometer_title: string;
-};
+import { TCountry } from '@repo/types';
 
 export const fetchCountries = async (): Promise<TCountry[]> => {
   const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
