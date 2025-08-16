@@ -1,29 +1,12 @@
 import { PrismaClient } from '@prisma/client';
-import { parse } from 'csv-parse';
-import * as fs from 'fs';
+import { TCountry } from '@repo/types';
 import * as path from 'path';
-
-export type TCountry = {
-  cc: string;
-  flag: string;
-  name_en: string;
-  name_ko: string;
-  name_ja: string;
-  population: string;
-  worldometer_title: string;
-};
+import { CsvParser } from '../../src/common/csv/csv.parser';
 
 export async function seedCountries(prisma: PrismaClient) {
-  const countries: TCountry[] = await new Promise((resolve, reject) => {
-    const csvPath = path.resolve(__dirname, 'countryInfo.csv');
-    const results: TCountry[] = [];
-
-    fs.createReadStream(csvPath)
-      .pipe(parse({ columns: true, skip_empty_lines: true }))
-      .on('data', (data) => results.push(data as TCountry))
-      .on('end', () => resolve(results))
-      .on('error', (error: Error) => reject(error));
-  });
+  const csvPath = path.resolve(__dirname, 'countryInfo.csv');
+  const csvParser = new CsvParser();
+  const countries: TCountry[] = await csvParser.parse<TCountry>(csvPath);
 
   for (const country of countries) {
     await prisma.country.create({
