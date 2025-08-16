@@ -4,7 +4,7 @@ import React, { createContext, ReactNode, useContext, useState } from 'react';
 import { Card } from './Card';
 
 interface AccordionContextType {
-  openItemId: string | null;
+  openItemIds: string[];
   toggleItem: (id: string) => void;
 }
 const AccordionContext = createContext<AccordionContextType | undefined>(
@@ -52,8 +52,8 @@ const CardAccordionBody = ({
   id: string;
   children: ReactNode;
 }) => {
-  const { openItemId } = useAccordion();
-  const isOpen = openItemId === id;
+  const { openItemIds } = useAccordion();
+  const isOpen = openItemIds.includes(id);
 
   return (
     <div
@@ -73,18 +73,22 @@ interface CardAccordionProps {
 }
 
 export const CardAccordion: React.FC<{
-  defaultOpenId?: string | null;
+  defaultOpenIds?: string[];
   children: ReactNode;
 }> &
-  CardAccordionProps = ({ children, defaultOpenId = null }) => {
-  const [openItemId, setOpenItemId] = useState<string | null>(defaultOpenId);
+  CardAccordionProps = ({ children, defaultOpenIds = [] }) => {
+  const [openItemIds, setOpenItemIds] = useState<string[]>(defaultOpenIds);
 
   const toggleItem = (id: string) => {
-    setOpenItemId((prevId) => (prevId === id ? null : id));
+    setOpenItemIds((currentIds) =>
+      currentIds.includes(id)
+        ? currentIds.filter((itemId) => itemId !== id)
+        : [...currentIds, id],
+    );
   };
 
   return (
-    <AccordionContext.Provider value={{ openItemId, toggleItem }}>
+    <AccordionContext.Provider value={{ openItemIds, toggleItem }}>
       <div className="space-y-2">{children}</div>
     </AccordionContext.Provider>
   );
