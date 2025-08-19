@@ -1,5 +1,3 @@
-'use client';
-
 import { CardAccordion } from '../src/components/organisms/CardAccordion';
 
 export default function CardAccordionPage() {
